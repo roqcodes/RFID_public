@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Create an Account</h1>
+            <p class="subtitle">Join us to get started</p>
+            <form action="/signup" method="POST">
+                <div class="input-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <p class="login-link">Already have an account? <a href="/">Log in</a></p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <h2>Sign-up Successful!</h2>
+            <p>You will be redirected to the login page in <span id="countdown">5</span> seconds.</p>
+        </div>
+    </div>
+
+    <script>
+        // Function to show the modal and start the countdown
+        function showModal() {
+            const modal = document.getElementById('success-modal');
+            modal.style.display = 'block';
+
+            let count = 3;
+            const countdownElement = document.getElementById('countdown');
+
+            const countdownInterval = setInterval(() => {
+                count--;
+                countdownElement.textContent = count;
+
+                if (count === 0) {
+                    clearInterval(countdownInterval);
+                    window.location.href = '/'; // Redirect to the login page
+                }
+            }, 1000);
+        }
+
+        // Check if the modal should be shown (based on query parameter)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === 'true') {
+            showModal();
+        }
+    </script>
+</body>
+</html>
